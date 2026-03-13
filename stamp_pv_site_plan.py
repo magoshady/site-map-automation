@@ -406,9 +406,13 @@ def draw_details_block(c, x, y, w, address, system_size, max_dc_voltage, install
 
 
 def draw_footer(c, page_w, company_name):
-    """Draw a simple footer line."""
+    """Draw a simple footer line, with white background to cover original PDF footer."""
     c.saveState()
     footer_y = 8 * mm
+
+    c.setFillColor(white)
+    c.rect(0, 0, page_w, footer_y + 2 * mm, fill=1, stroke=0)
+
     c.setStrokeColor(grey)
     c.setLineWidth(0.5)
     c.line(15 * mm, footer_y, page_w - 15 * mm, footer_y)
@@ -500,8 +504,9 @@ def stamp_pv_site_plan(
 
     # ── Details block (bottom area, above warning) ──
     details_y = margin + 20 * mm  # Above warning
+    details_pad = 5 * mm
     draw_details_block(
-        c, margin, details_y, content_w,
+        c, margin - details_pad, details_y, content_w + 2 * details_pad,
         address, system_size_kwdc, max_dc_voltage, install_date
     )
 
