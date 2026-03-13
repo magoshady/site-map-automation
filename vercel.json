@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/stamp.py": {
+      "maxDuration": 10,
+      "memory": 1024
+    }
+  }
+}
