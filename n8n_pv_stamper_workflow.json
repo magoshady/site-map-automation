@@ -155,7 +155,7 @@
       "position": [2080, 300],
       "parameters": {
         "method": "POST",
-        "url": "https://YOUR_VERCEL_APP.vercel.app/api/stamp",
+        "url": "https://site-map-automation.vercel.app/api/stamp",
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
