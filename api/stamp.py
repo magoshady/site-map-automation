@@ -48,7 +48,12 @@ class handler(BaseHTTPRequestHandler):
             with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
                 input_path = f.name
                 if pdf_url:
-                    urllib.request.urlretrieve(pdf_url, input_path)
+                    req = urllib.request.Request(pdf_url, headers={
+                        "User-Agent": "Mozilla/5.0 (compatible; PVStamper/1.0)",
+                        "Accept": "*/*",
+                    })
+                    with urllib.request.urlopen(req) as resp:
+                        f.write(resp.read())
                 else:
                     f.write(base64.b64decode(pdf_base64))
 
