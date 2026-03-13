@@ -1,8 +1,8 @@
 {
-  "functions": {
-    "api/stamp.py": {
-      "maxDuration": 10,
-      "memory": 1024
+  "builds": [
+    {
+      "src": "api/stamp.py",
+      "use": "@vercel/python"
     }
-  }
+  ]
 }
