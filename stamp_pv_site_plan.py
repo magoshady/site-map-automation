@@ -376,7 +376,7 @@ def draw_warning_image(c, image_path, x, y, target_w=None):
 
 def draw_details_block(c, x, y, w, address, system_size, max_dc_voltage, install_date):
     """Draw the variable address/details text block."""
-    block_h = 24 * mm
+    block_h = 36 * mm
 
     c.saveState()
     c.setFillColor(white)
@@ -384,7 +384,7 @@ def draw_details_block(c, x, y, w, address, system_size, max_dc_voltage, install
 
     text_x = x + 4 * mm
     line_h = 5.5 * mm
-    cur_y = y + block_h - 6 * mm
+    cur_y = y + 18 * mm
 
     c.setFillColor(BRAND_DARK)
 
