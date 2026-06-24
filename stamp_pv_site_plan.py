@@ -241,8 +241,9 @@ def draw_legend_image(c, image_path, x, y, target_w=42 * mm, page_h=None):
 
     # White background covering full satellite image height
     if page_h:
-        # Top: just below address bar (page_h - 43mm)
-        bg_top = page_h - 43 * mm
+        # Top: high enough to cover OpenSolar's stray locator inset at the
+        # image's top-left corner (sits just below the address bar)
+        bg_top = page_h - 31 * mm
         # Bottom: just above details block (margin + warning + gap + details = ~59mm)
         bg_bottom = 59 * mm
         bg_y = bg_bottom
@@ -479,7 +480,7 @@ def stamp_pv_site_plan(
 
     # ── Legend (left side, vertically centred in image area) ──
     legend_x = margin + 3 * mm
-    legend_y = page_h * 0.46  # Moved up from 0.42
+    legend_y = page_h * 0.50  # Nudged up for new OpenSolar template
 
     # Prefer PNG legend: explicit path > default asset > vector fallback
     legend_path = legend_image or os.path.join(ASSETS_DIR, "legend.png")
@@ -501,6 +502,18 @@ def stamp_pv_site_plan(
             page_w - margin - 12 * mm,
             page_h - margin - 45 * mm  # Brought down ~20mm from previous -25mm
         )
+
+    # ── Cover OpenSolar's new bottom table ──
+    # The updated template renders its own component-label row ("Msb" etc.) just
+    # below the image plus a full-width details/warning table whose grey & yellow
+    # cell ends poke out left and right of our overlays. Wipe the whole band white
+    # (just below the satellite image down to the footer) before drawing our own.
+    band_top = 91 * mm     # ~258pt: just below the satellite image bottom edge
+    band_bottom = 8 * mm   # ~23pt: overlaps the footer box (footer redraws on top)
+    c.saveState()
+    c.setFillColor(white)
+    c.rect(0, band_bottom, page_w, band_top - band_bottom, fill=1, stroke=0)
+    c.restoreState()
 
     # ── Details block (bottom area, above warning) ──
     details_y = margin + 20 * mm  # Above warning
